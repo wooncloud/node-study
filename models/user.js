@@ -9,7 +9,7 @@ class User extends Sequelize.Model {
 				unique: true
 			},
 			age: {
-				type: Sequelize.INTEGER.UNSIGNED,
+				type: Sequelize.INTEGER,
 				allowNull: false,
 			},
 			married: {
@@ -30,14 +30,16 @@ class User extends Sequelize.Model {
 			timestamps: false,
 			underscored: false,
 			modelName: 'User',
-			tableName: 'Users',
+			tableName: 'users',
 			paranoid: false,
 			charset: 'utf8',
 			collate: 'utf8_general_ci'
 		})
 	}
 
-	static associate(db) {}
+	static associate(db) {
+		db.User.hasMany(db.Comment, {foreignKey: 'commenter', sourceKey: 'id'});
+	}
 }
 
 module.exports = User;
