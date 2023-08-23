@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 class Comment extends Sequelize.Model {
     static initiate(sequelize) {
         Comment.init({
-            Comment: {
+            comment: {
                 type: Sequelize.STRING(100),
                 allowNull: false,
             },
