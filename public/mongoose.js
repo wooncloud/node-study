@@ -16,11 +16,11 @@ async function getUser() {
 		users.map(function (user) {
 			const row = document.createElement("tr");
 			row.addEventListener("click", () => {
-				getComment(user.id);
+				getComment(user._id);
 			});
 
 			row.innerHTML = `
-				<td>${user.id}</td>
+				<td>${user._id}</td>
 				<td>${user.name}</td>
 				<td>${user.age}</td>
 				<td>${user.married ? "기혼" : "미혼"}</td>
@@ -51,7 +51,7 @@ async function getComment(id) {
 				}
 
 				try {
-					await axios.patch(`/comments/${comment.id}`, { comment: newComment });
+					await axios.patch(`/comments/${comment._id}`, { comment: newComment });
 					getComment(id);
 				} catch (err) {
 					console.error(err);
@@ -62,7 +62,7 @@ async function getComment(id) {
 			remove.textContent = "삭제";
 			remove.addEventListener("click", async () => {
 				try {
-					await axios.delete(`/comments/${comment.id}`);
+					await axios.delete(`/comments/${comment._id}`);
 					getComment(id);
 				} catch (err) {
 					console.error(err);
@@ -70,8 +70,8 @@ async function getComment(id) {
 			});
 
 			row.innerHTML = `
-				<td>${comment.id}</td>
-				<td>${comment.User.name}</td>
+				<td>${comment.commenter._id}</td>
+				<td>${comment.commenter.name}</td>
 				<td>${comment.comment}</td>
 			`;
 			const editTd = document.createElement("td");

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 	<meta charset="UTF-8">
@@ -54,7 +54,7 @@
 		<tbody>
 			{% for user in users %}
 			<tr>
-				<td>{{user.id}}</td>
+				<td>{{user._id}}</td>
 				<td>{{user.name}}</td>
 				<td>{{user.age}}</td>
 				<td>{{'기혼' if user.married else '미혼'}}</td>
