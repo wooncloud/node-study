@@ -1,12 +1,12 @@
 const express = require('express');
-const User = require('../models/user');
-const Comment = require('../models/comment');
+const User = require('../schemas/user');
+const Comment = require('../schemas/comment');
 
 const router = express.Router();
 
 router.route('/').get(async (req, res, next) => {
 	try {
-		const users = await User.findAll();
+		const users = await User.find();
 		res.json(users);
 	} catch (err) {
 		console.log(err);
@@ -30,12 +30,9 @@ router.route('/').get(async (req, res, next) => {
 
 router.get('/:id/comments', async (req, res, next) => {
 	try {
-		const comments = await Comment.findAll({
-			include: {
-				model: User,
-				where: { id : req.params.id },
-			}
-		});
+		const comments = await Comment.find({
+			commenter: req.params.id,
+		}).populate('commenter');
 		console.log(comments);
 		res.json(comments);
 	} catch (err) {
